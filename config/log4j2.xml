@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss}  %-5level [%t] %c{1} - %msg%n" />
+        </Console>
+        <RollingFile name="FILE" fileName="logs/Monedero.log" filePattern="logs/Monedero-%d{MM-dd-yyyy}-%i.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level [%t] %c{1} - %msg%n" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="5 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+        <Async name="ASYNC">
+            <AppenderRef ref="FILE" />
+            <AppenderRef ref="CONSOLE" />
+        </Async>
+    </Appenders>
+    <Loggers>
+        <Logger name="root" level="ERROR" additivity="false">
+            <AppenderRef ref="ASYNC" />
+        </Logger>   
+        <Root level="DEBUG">
+            <AppenderRef ref="ASYNC" />
+        </Root>
+    </Loggers>
+</Configuration>

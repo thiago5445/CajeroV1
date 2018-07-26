@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificado1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="65194b18-72b1-47bc-b3dd-4c760a1914ef">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="134"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="858"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["0930051495"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+v_cedula,
+concat(v_nombres,' ',v_apellidos) v_nombres,
+v_carrera,
+case v_nivel when 1 then 'Primer' when 2 then 'Segundo' when 3 then 'Tercer' when 4 then 'Cuarto' when 5 then 'Quinto' else 'Sexto' end v_nivel,
+v_paralelo,v_jornada, 
+case v_jornada when 'NOCTURNA' then 'en el horario de clases es de lunes a viernes de 18h30 a 22:00' ELSE 'en el horario de clases es de lunes a viernes de 7h30 a 11:30' END registro,
+case v_jornada when 'NOCTURNA' then 'DIURNA' else 'NOCTURNA' end cambio
+FROM v_notas WHERE v_cedula = $P{id}
+GROUP BY v_cedula,v_carrera,v_nivel,v_paralelo,v_jornada]]>
+	</queryString>
+	<field name="v_cedula" class="java.lang.String"/>
+	<field name="v_nombres" class="java.lang.String"/>
+	<field name="v_carrera" class="java.lang.String"/>
+	<field name="v_nivel" class="java.lang.String"/>
+	<field name="v_paralelo" class="java.lang.String"/>
+	<field name="v_jornada" class="java.lang.String"/>
+	<field name="registro" class="java.lang.String"/>
+	<field name="cambio" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="100" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<image>
+				<reportElement x="21" y="14" width="555" height="86" uuid="db394fc8-01c3-41ef-96ed-ae769b10444d"/>
+				<imageExpression><![CDATA["C:/Users/lconstante/Desktop/tesis completa/NetBeansProjects/Monedero/resources/images/logo2.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<textField pattern="">
+				<reportElement x="320" y="8" width="210" height="30" uuid="a782df27-45f2-4957-9f95-ee04737d54a0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("'Guayaquil,' d  'de' MMMM yyyy ",new Locale("es", "ES"))).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="550" height="1" uuid="5746f7fa-57a7-4218-b50c-759063472539"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="140" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="40" y="0" width="360" height="50" uuid="5a05c85e-518e-415f-a5b5-f5960777be7d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Señores \n"+
+"Coordinadores de Secretaria Académica\n"+
+"INSTITUTO TECNOLÓGICO SUPERIOR GUAYAQUIL"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="70" width="555" height="50" uuid="9c012511-46e3-462c-be39-b2ef4f6e4470"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOLICITUD DE CAMBIO DE JORNADA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="335" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="190" width="555" height="65" uuid="e396c32b-8c4a-4422-b34d-50ad3a3075a7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Atentamente,]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="40" y="0" width="480" height="200" uuid="0039d719-fc12-4ef3-97b7-2aacf9df14b7"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="14" isItalic="true"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Yo, "+$F{v_nombres}+", con cédula de identidad No. "+$F{v_cedula}+", matriculada en el Instituto Tecnológico Superior Guayaquil, en el "+ $F{v_nivel}+" Nivel Paralelo "+$F{v_paralelo}+", en la Carrera de "+$F{v_carrera}+" jornada "+$F{v_jornada}+","+$F{registro}+" necesito el cambio a la jornada "+$F{cambio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="140" y="280" width="280" height="30" uuid="c42ac5fb-634e-4472-bc40-0df179a900a9"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+		<band height="25" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement x="0" y="-15" width="555" height="40" uuid="e207f425-5a56-4bb7-9b6c-4c4a8236032a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{v_nombres}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="60" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="60" uuid="99f0591b-2b01-40cf-aa57-54bb554d0e4b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTUDIANTE]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="26" splitType="Stretch">
+			<line>
+				<reportElement x="-2" y="0" width="555" height="1" uuid="48ba8d98-8c65-4a5f-8e65-b7fe4ec010cd"/>
+			</line>
+			<textField>
+				<reportElement x="30" y="2" width="217" height="23" uuid="c9996422-f7df-4f7f-a985-fce09976ad2d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Gómez Rendón 1403 y Av. Machala"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
